@@ -8,4 +8,4 @@ http://starcroce.github.io/rss.xml
 http://starcroce.github.io/sitemap.txt
 http://starcroce.github.io/tags.html
 
-http://starcroce.github.io/lessons/2011/12/29/jekyll-introduction
+http://starcroce.github.io/2014/10/07/hello-world
