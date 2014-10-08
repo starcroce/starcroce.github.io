@@ -1,110 +1,70 @@
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Text Sentiment Analysis</title>
-    
-    <meta name="author" content="Yisha Wu">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>Text Sentiment Analysis &larr; </title>
+   <meta name="author" content="Yisha Wu" />
 
-    <!-- Le styles -->
-    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
-    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+   <link rel="start" href="/" />
 
-    <!-- Le fav and touch icons -->
-  <!-- Update these with your own images
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-  -->
-  </head>
+	
+	
+	
+	
 
-  <body>
+   <!-- syntax highlighting CSS -->
+   <link rel="stylesheet" href="/assets/themes/mark-reid/css/syntax.css" type="text/css" />
 
-    <div class="topbar">
-      <div class="fill">
-        <div class="container">
-          <a class="brand" href="/">StarCroce</a>
-          <ul class="nav">
-            
-            
-            
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/assets/themes/mark-reid/css/screen.css" type="text/css" />
+
+</head>
+<body id="">
+<div id="site">
+  
+  <div id="header">
+    <h1>
+    	<a href="/" title="StarCroce">StarCroce</a>
+    	<span class="byline">&larr; <a href="/">Yisha Wu</a></span>
+    </h1>
+    <ul class="nav">
+      <li><a class="home" href="/">Home</a></li>
+      <li><a  href="/archive.html">Archive</a></li>
+      <li><a  href="/pages.html">Pages</a></li>
+      <li><a  href="/categories.html">Categories</a></li>
+      <li><a  href="/tags.html">Tags</a></li>
+    </ul>
+  </div>
+
+  
+<div id="page">
+	
+  <h1 class="emphnext">Text Sentiment Analysis</h1>
+  <ul class="tag_box inline">
+  
+  
 
 
   
-    
-      
-      	
-      	<li><a href="/archive.html">Archive</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/categories.html">Categories</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/pages.html">Pages</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/tags.html">Tags</a></li>
-      	
-      
+     
+    	<li><a href="/tags.html#Python-ref">Python <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#NLP-ref">NLP <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#Sentiment Analysis-ref">Sentiment Analysis <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#Text Classification-ref">Text Classification <span>2</span></a></li>
     
   
 
 
 
-          </ul>
-        </div>
-      </div>
-    </div>
+  </ul>
 
-    <div class="container">
-
-      <div class="content">
-        
-<div class="page-header">
-  <h1>Text Sentiment Analysis <small>Supporting tagline</small></h1>
-</div>
-
-<div class="row">
-  <div class="span10">
-    
+  
 <h3 id="attention">Attention</h3>
 <p>Just for my own memo, not a public tutorial.</p>
 
@@ -143,7 +103,11 @@ tokens = tokenizer.tokenize(text)
 
 <p>It will return a list of tokens without punctuations. But for the tokens, we still need to stem or lemmatize it.</p>
 
-<p>The basic difference between stemmer and lemmatizer can be found here <a href="http://stackoverflow.com/questions/17317418/stemmers-vs-lemmatizers">http://stackoverflow.com/questions/17317418/stemmers-vs-lemmatizers</a>. NLTK provides some stemmer and lemmatizer like LancasterStemmer and WordNetLemmatizer. For the specific difference, please check NLTK documentation.</p>
+<p>The basic difference between stemmer and lemmatizer can be found here: </p>
+
+<p><a href="http://stackoverflow.com/questions/17317418/stemmers-vs-lemmatizers">http://stackoverflow.com/questions/17317418/stemmers-vs-lemmatizers</a>. </p>
+
+<p>NLTK provides some stemmer and lemmatizer like LancasterStemmer and WordNetLemmatizer. For the specific difference, please check NLTK documentation.</p>
 
 <pre><code>from nltk.stem.lancaster import LancasterStemmer
 from nltk.stem import WordNetLemmatizer
@@ -157,11 +121,23 @@ lemmatizer.lemmatize('having', 'v')	# become 'have'
 <p>Need to test all of these method and choose the best way. I will write a new post about the difference between stemming and lemmatization later.</p>
 
 <h3 id="support-vector-machine">Support Vector Machine</h3>
-<p>scikit-learn provides two implementation of SVM classifier: libsvm and liblinear. The basic difference can be found here: <a href="http://stackoverflow.com/questions/11508788/whats-the-difference-between-libsvm-and-liblinear">http://stackoverflow.com/questions/11508788/whats-the-difference-between-libsvm-and-liblinear</a>.</p>
+<p>scikit-learn provides two implementation of SVM classifier: libsvm and liblinear. The basic difference can be found here: </p>
 
-<p>For linear SVM, there is an important parameter C. The basic infulence can be found here: <a href="http://stats.stackexchange.com/questions/31066/what-is-the-influence-of-c-in-svms-with-linear-kernel">http://stats.stackexchange.com/questions/31066/what-is-the-influence-of-c-in-svms-with-linear-kernel</a>. In my experiment, I tried from 1e-2 to 1e5. There are many other parameters in SVC with linear kernel or Linear SVC, but I keep them as the default. </p>
+<p><a href="http://stackoverflow.com/questions/11508788/whats-the-difference-between-libsvm-and-liblinear">http://stackoverflow.com/questions/11508788/whats-the-difference-between-libsvm-and-liblinear</a>.</p>
 
-<p>For the library documentation, we can check <a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html">http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html</a> and <a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html">http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html</a>. The former is libsvm implementation and the latter is liblinear implmentation.</p>
+<p>For linear SVM, there is an important parameter C. The basic infulence can be found here: </p>
+
+<p><a href="http://stats.stackexchange.com/questions/31066/what-is-the-influence-of-c-in-svms-with-linear-kernel">http://stats.stackexchange.com/questions/31066/what-is-the-influence-of-c-in-svms-with-linear-kernel</a>. </p>
+
+<p>In my experiment, I tried from 1e-2 to 1e5. There are many other parameters in SVC with linear kernel or Linear SVC, but I keep them as the default. </p>
+
+<p>For the library documentation, we can check </p>
+
+<p><a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html">http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html</a> </p>
+
+<p><a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html">http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html</a>. </p>
+
+<p>The former is libsvm implementation and the latter is liblinear implmentation.</p>
 
 <p>In scikit-learn, the step of text classification is as follows:</p>
 
@@ -184,24 +160,35 @@ lemmatizer.lemmatize('having', 'v')	# become 'have'
 <p>I don’t want to talk about what is tf-idf and how count vectorizer and tf-idf transformer works here. I will write a new blog to specify them in the future.</p>
 
 <h4 id="parameter-tuning">Parameter Tuning</h4>
-<p>Here is a simple example about parameter tuning using scikit-learn: <a href="http://machinelearningmastery.com/how-to-tune-algorithm-parameters-with-scikit-learn/">http://machinelearningmastery.com/how-to-tune-algorithm-parameters-with-scikit-learn/</a>. There is a class sklearn.grid_search.GridSearchCV that can help us to find the best parameter combination. The detailed document is here <a href="http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html">http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html</a>.</p>
+<p>Here is a simple example about parameter tuning using scikit-learn: </p>
+
+<p><a href="http://machinelearningmastery.com/how-to-tune-algorithm-parameters-with-scikit-learn/">http://machinelearningmastery.com/how-to-tune-algorithm-parameters-with-scikit-learn/</a>. </p>
+
+<p>There is a class sklearn.grid_search.GridSearchCV that can help us to find the best parameter combination. The detailed document is here: </p>
+
+<p><a href="http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html">http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html</a>.</p>
 
 <p>After parameter tuning, we can get the best parameters. Then we can start to train the classifier, save it as the binary file which can be used in the future online service.</p>
 
-    <hr>
-    <div class="pagination">
-      <ul>
-      
-        <li class="prev"><a href="/other/2014/10/07/hello-world" title="Hello World">&larr; Previous</a></li>
-      
-        <li><a href="/archive.html">Archive</a></li>
-      
-        <li class="next disabled"><a>Next &rarr;</a>
-      
-      </ul>
-    </div>
-    <hr>
-    
+
+  <address class="signature">
+    <a class="author" href="/">Yisha Wu</a> 
+    <span class="date">07 October 2014</span>
+    <span class="location"></span>
+  </address>
+  
+  <div class="prev-next">
+  
+    <a href="/tech/2014/10/08/usage-of-tf-idf" class="next" title="Usage of TF IDF">Next Post &rarr;</a>
+  
+  
+    <a href="/other/2014/10/07/hello-world" class="prev" title="Hello World">&larr; Earlier Post</a>
+  
+  </div>
+  
+</div><!-- End Page -->
+
+
 
 
   <div id="disqus_thread"></div>
@@ -222,51 +209,36 @@ lemmatizer.lemmatize('having', 'v')	# become 'have'
 
 
 
+
+
+  
+  <div id="footer">
+  	<address>
+  		<span class="copyright">
+  			Content by <a href="/info/site.html">Yisha Wu</a>. Design by 
+  			<a href="http://mark.reid.name/">Mark Reid</a>
+  			<br/>
+  			(<a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Some rights reserved</a>)			
+  		</span>
+  		<span class="engine">
+  			Powered by <a href="http://github.com/mojombo/jekyll/" title="A static, minimalist CMS">Jekyll</a>
+  		</span>
+  	</address>
   </div>
   
-  <div class="span4">
-    <h4>Published</h4>
-    <div class="date"><span>07 October 2014</span></div>
-
-  
-    <h4>Tags</h4>
-    <ul class="tag_box">
-    
-    
-
-
-  
-     
-    	<li><a href="/tags.html#Python-ref">Python <span>1</span></a></li>
-     
-    	<li><a href="/tags.html#NLP-ref">NLP <span>1</span></a></li>
-     
-    	<li><a href="/tags.html#Sentiment Analysis-ref">Sentiment Analysis <span>1</span></a></li>
-     
-    	<li><a href="/tags.html#Text Classification-ref">Text Classification <span>1</span></a></li>
-    
-  
-
-
-
-    </ul>
-    
-  </div>
 </div>
 
+<!--[if IE 6]>
+<script type="text/javascript"> 
+	/*Load jQuery if not already loaded*/ if(typeof jQuery == 'undefined'){ document.write("<script type=\"text/javascript\"   src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js\"></"+"script>"); var __noconflict = true; } 
+	var IE6UPDATE_OPTIONS = {
+		icons_path: "http://static.ie6update.com/hosted/ie6update/images/"
+	}
+</script>
+<script type="text/javascript" src="http://static.ie6update.com/hosted/ie6update/ie6update.js"></script>
+<![endif]-->
 
-      </div>
-
-      <footer>
-        <p>&copy; Yisha Wu 2012 
-          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
-          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
-        </p>
-      </footer>
-
-    </div> <!-- /container -->
-
-    
-  </body>
+  
+</body>
 </html>
 

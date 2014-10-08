@@ -5,10 +5,55 @@
         <description>StarCroce - Yisha Wu</description>
         <link>http://starcroce.github.io</link>
         <link>http://starcroce.github.io</link>
-        <lastBuildDate>2014-10-08T13:07:04-07:00</lastBuildDate>
-        <pubDate>2014-10-08T13:07:04-07:00</pubDate>
+        <lastBuildDate>2014-10-08T16:47:42-07:00</lastBuildDate>
+        <pubDate>2014-10-08T16:47:42-07:00</pubDate>
         <ttl>1800</ttl>
 
+
+        <item>
+                <title>Usage of TF IDF</title>
+                <description>
+&lt;h3 id=&quot;defination&quot;&gt;Defination&lt;/h3&gt;
+&lt;p&gt;TF - IDF is short for &lt;strong&gt;term frequency - inverse document frequency&lt;/strong&gt;. The wiki page can be found here: &lt;a href=&quot;http://en.wikipedia.org/wiki/Tf–idf&quot;&gt;tf - idf&lt;/a&gt;. &lt;/p&gt;
+
+&lt;p&gt;Term frequency means the raw frequency of a term &lt;em&gt;t&lt;/em&gt; in occurs in a document &lt;em&gt;d&lt;/em&gt;, which can be represented as &lt;em&gt;tf(f, d) = f(t, d)&lt;/em&gt;. &lt;/p&gt;
+
+&lt;p&gt;Inverse document frequency measures whether the term is common or rare across all documents. It is the logarithmically scaled fraction of the documents that contain the word, obtained by &lt;strong&gt;dividing the total number of documents by the number of documents containing the term&lt;/strong&gt;, and then taking the logarithm of that quotient, which can be represented as &lt;em&gt;idf(t, D) = log(N / {d in D: t in d})&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Finally &lt;em&gt;tfidf(t, d, D) = tf(t, d) x idf(t, D)&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;usage&quot;&gt;Usage&lt;/h3&gt;
+&lt;p&gt;Apparently, if a term &lt;em&gt;t&lt;/em&gt; has a very high &lt;em&gt;tf&lt;/em&gt; in one document, it means that this term appears lots of times in that document. Then we can believe that this term can help us classify this document.&lt;/p&gt;
+
+&lt;p&gt;If the number of documents containing term &lt;em&gt;t&lt;/em&gt; is very small, the &lt;em&gt;idf&lt;/em&gt; will be larger. Then we can also believe that the term &lt;em&gt;t&lt;/em&gt; can help us classify this kind of documents. And idf can help us find some common words like “a”, “the”, “is”. These words can be appeared many times in a document, so the tf value will be very large. But they are also existed in every document, so the idf value will be very small, even 0. Then the tf-idf can help us filter these words.&lt;/p&gt;
+
+&lt;h3 id=&quot;disadvantage&quot;&gt;Disadvantage&lt;/h3&gt;
+&lt;p&gt;A basic assumption of tf-idf is that the most meaningful word that help us classify the document should appear most times. However, it is not always correct. A better way is to introduce semantic analysis. A recent way is to use LDA (Latent Dirichlet Allocation). I haven’t use this in my experiment, but I will try to talk a little about that in the next section.&lt;/p&gt;
+
+&lt;h3 id=&quot;lda&quot;&gt;LDA&lt;/h3&gt;
+&lt;p&gt;LDA is short for Latent Dirichlet Allocation. Here is a very good explanation about LDA on Quora if you don’t want to read the boring wiki page:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.quora.com/What-is-a-good-explanation-of-Latent-Dirichlet-Allocation&quot;&gt;http://www.quora.com/What-is-a-good-explanation-of-Latent-Dirichlet-Allocation&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Basically, LDA is an unsupervised learning algorithm. It can provide the topics that each document contains. If given 3 documents and 2 topics, LDA can return something like “document A is 100% topic 1, document B is 100% topic 2, document C is 80% topic 1 and 20% topic 2”.&lt;/p&gt;
+
+&lt;p&gt;LDA assumes that documents are mixtures of topics. In this model, LDA assumes that documents are created in the following steps:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Decide how many words that a document have.&lt;/li&gt;
+  &lt;li&gt;Choose a topic mixture for the document. For example, we have two topics “food” and “animal”, and we decide to create a document with 30% “food” and 70% “animal”.&lt;/li&gt;
+  &lt;li&gt;Pick a topic. So we have 30% probability to pick “food” and 70% probability to pick “animal”.&lt;/li&gt;
+  &lt;li&gt;For each topic we picked, generate a word. For example, “food” may generate “beef” with 40% and “animal” will generate “dog” with 35%.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After that, LDA will try to backtrack from the document to find a set of topics that is most likely to generate this document.&lt;/p&gt;
+
+&lt;p&gt;This is just a simple example about how LDA works. I will explain it after I try it in my experiment and read more documents.&lt;/p&gt;
+</description>
+                <link>http://starcroce.github.io/tech/2014/10/08/usage-of-tf-idf</link>
+                <guid>http://starcroce.github.io/tech/2014/10/08/usage-of-tf-idf</guid>
+                <pubDate>2014-10-08T00:00:00-07:00</pubDate>
+        </item>
 
         <item>
                 <title>Text Sentiment Analysis</title>
@@ -51,7 +96,11 @@ tokens = tokenizer.tokenize(text)
 
 &lt;p&gt;It will return a list of tokens without punctuations. But for the tokens, we still need to stem or lemmatize it.&lt;/p&gt;
 
-&lt;p&gt;The basic difference between stemmer and lemmatizer can be found here &lt;a href=&quot;http://stackoverflow.com/questions/17317418/stemmers-vs-lemmatizers&quot;&gt;http://stackoverflow.com/questions/17317418/stemmers-vs-lemmatizers&lt;/a&gt;. NLTK provides some stemmer and lemmatizer like LancasterStemmer and WordNetLemmatizer. For the specific difference, please check NLTK documentation.&lt;/p&gt;
+&lt;p&gt;The basic difference between stemmer and lemmatizer can be found here: &lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://stackoverflow.com/questions/17317418/stemmers-vs-lemmatizers&quot;&gt;http://stackoverflow.com/questions/17317418/stemmers-vs-lemmatizers&lt;/a&gt;. &lt;/p&gt;
+
+&lt;p&gt;NLTK provides some stemmer and lemmatizer like LancasterStemmer and WordNetLemmatizer. For the specific difference, please check NLTK documentation.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;from nltk.stem.lancaster import LancasterStemmer
 from nltk.stem import WordNetLemmatizer
@@ -65,11 +114,23 @@ lemmatizer.lemmatize(&#39;having&#39;, &#39;v&#39;)	# become &#39;have&#39;
 &lt;p&gt;Need to test all of these method and choose the best way. I will write a new post about the difference between stemming and lemmatization later.&lt;/p&gt;
 
 &lt;h3 id=&quot;support-vector-machine&quot;&gt;Support Vector Machine&lt;/h3&gt;
-&lt;p&gt;scikit-learn provides two implementation of SVM classifier: libsvm and liblinear. The basic difference can be found here: &lt;a href=&quot;http://stackoverflow.com/questions/11508788/whats-the-difference-between-libsvm-and-liblinear&quot;&gt;http://stackoverflow.com/questions/11508788/whats-the-difference-between-libsvm-and-liblinear&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;scikit-learn provides two implementation of SVM classifier: libsvm and liblinear. The basic difference can be found here: &lt;/p&gt;
 
-&lt;p&gt;For linear SVM, there is an important parameter C. The basic infulence can be found here: &lt;a href=&quot;http://stats.stackexchange.com/questions/31066/what-is-the-influence-of-c-in-svms-with-linear-kernel&quot;&gt;http://stats.stackexchange.com/questions/31066/what-is-the-influence-of-c-in-svms-with-linear-kernel&lt;/a&gt;. In my experiment, I tried from 1e-2 to 1e5. There are many other parameters in SVC with linear kernel or Linear SVC, but I keep them as the default. &lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://stackoverflow.com/questions/11508788/whats-the-difference-between-libsvm-and-liblinear&quot;&gt;http://stackoverflow.com/questions/11508788/whats-the-difference-between-libsvm-and-liblinear&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;For the library documentation, we can check &lt;a href=&quot;http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html&quot;&gt;http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html&lt;/a&gt; and &lt;a href=&quot;http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html&quot;&gt;http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html&lt;/a&gt;. The former is libsvm implementation and the latter is liblinear implmentation.&lt;/p&gt;
+&lt;p&gt;For linear SVM, there is an important parameter C. The basic infulence can be found here: &lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://stats.stackexchange.com/questions/31066/what-is-the-influence-of-c-in-svms-with-linear-kernel&quot;&gt;http://stats.stackexchange.com/questions/31066/what-is-the-influence-of-c-in-svms-with-linear-kernel&lt;/a&gt;. &lt;/p&gt;
+
+&lt;p&gt;In my experiment, I tried from 1e-2 to 1e5. There are many other parameters in SVC with linear kernel or Linear SVC, but I keep them as the default. &lt;/p&gt;
+
+&lt;p&gt;For the library documentation, we can check &lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html&quot;&gt;http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html&lt;/a&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html&quot;&gt;http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html&lt;/a&gt;. &lt;/p&gt;
+
+&lt;p&gt;The former is libsvm implementation and the latter is liblinear implmentation.&lt;/p&gt;
 
 &lt;p&gt;In scikit-learn, the step of text classification is as follows:&lt;/p&gt;
 
@@ -92,7 +153,13 @@ lemmatizer.lemmatize(&#39;having&#39;, &#39;v&#39;)	# become &#39;have&#39;
 &lt;p&gt;I don’t want to talk about what is tf-idf and how count vectorizer and tf-idf transformer works here. I will write a new blog to specify them in the future.&lt;/p&gt;
 
 &lt;h4 id=&quot;parameter-tuning&quot;&gt;Parameter Tuning&lt;/h4&gt;
-&lt;p&gt;Here is a simple example about parameter tuning using scikit-learn: &lt;a href=&quot;http://machinelearningmastery.com/how-to-tune-algorithm-parameters-with-scikit-learn/&quot;&gt;http://machinelearningmastery.com/how-to-tune-algorithm-parameters-with-scikit-learn/&lt;/a&gt;. There is a class sklearn.grid_search.GridSearchCV that can help us to find the best parameter combination. The detailed document is here &lt;a href=&quot;http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html&quot;&gt;http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Here is a simple example about parameter tuning using scikit-learn: &lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://machinelearningmastery.com/how-to-tune-algorithm-parameters-with-scikit-learn/&quot;&gt;http://machinelearningmastery.com/how-to-tune-algorithm-parameters-with-scikit-learn/&lt;/a&gt;. &lt;/p&gt;
+
+&lt;p&gt;There is a class sklearn.grid_search.GridSearchCV that can help us to find the best parameter combination. The detailed document is here: &lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html&quot;&gt;http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;After parameter tuning, we can get the best parameters. Then we can start to train the classifier, save it as the binary file which can be used in the future online service.&lt;/p&gt;
 </description>

@@ -41,7 +41,11 @@ For removing the punctuations and tokenziation, we can use RegexTokenizer of NLT
 	
 It will return a list of tokens without punctuations. But for the tokens, we still need to stem or lemmatize it.
 
-The basic difference between stemmer and lemmatizer can be found here <http://stackoverflow.com/questions/17317418/stemmers-vs-lemmatizers>. NLTK provides some stemmer and lemmatizer like LancasterStemmer and WordNetLemmatizer. For the specific difference, please check NLTK documentation.
+The basic difference between stemmer and lemmatizer can be found here: 
+
+<http://stackoverflow.com/questions/17317418/stemmers-vs-lemmatizers>. 
+
+NLTK provides some stemmer and lemmatizer like LancasterStemmer and WordNetLemmatizer. For the specific difference, please check NLTK documentation.
 
 	from nltk.stem.lancaster import LancasterStemmer
 	from nltk.stem import WordNetLemmatizer
@@ -54,11 +58,23 @@ The basic difference between stemmer and lemmatizer can be found here <http://st
 Need to test all of these method and choose the best way. I will write a new post about the difference between stemming and lemmatization later.
 
 ### Support Vector Machine
-scikit-learn provides two implementation of SVM classifier: libsvm and liblinear. The basic difference can be found here: <http://stackoverflow.com/questions/11508788/whats-the-difference-between-libsvm-and-liblinear>.
+scikit-learn provides two implementation of SVM classifier: libsvm and liblinear. The basic difference can be found here: 
 
-For linear SVM, there is an important parameter C. The basic infulence can be found here: <http://stats.stackexchange.com/questions/31066/what-is-the-influence-of-c-in-svms-with-linear-kernel>. In my experiment, I tried from 1e-2 to 1e5. There are many other parameters in SVC with linear kernel or Linear SVC, but I keep them as the default. 
+<http://stackoverflow.com/questions/11508788/whats-the-difference-between-libsvm-and-liblinear>.
 
-For the library documentation, we can check <http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html> and <http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html>. The former is libsvm implementation and the latter is liblinear implmentation.
+For linear SVM, there is an important parameter C. The basic infulence can be found here: 
+
+<http://stats.stackexchange.com/questions/31066/what-is-the-influence-of-c-in-svms-with-linear-kernel>. 
+
+In my experiment, I tried from 1e-2 to 1e5. There are many other parameters in SVC with linear kernel or Linear SVC, but I keep them as the default. 
+
+For the library documentation, we can check 
+
+<http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html> 
+
+<http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html>. 
+
+The former is libsvm implementation and the latter is liblinear implmentation.
 
 In scikit-learn, the step of text classification is as follows:
 
@@ -77,6 +93,12 @@ When load the training set, the format of the training file set should be like:
 I don't want to talk about what is tf-idf and how count vectorizer and tf-idf transformer works here. I will write a new blog to specify them in the future.
 
 #### Parameter Tuning
-Here is a simple example about parameter tuning using scikit-learn: <http://machinelearningmastery.com/how-to-tune-algorithm-parameters-with-scikit-learn/>. There is a class sklearn.grid_search.GridSearchCV that can help us to find the best parameter combination. The detailed document is here <http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html>.
+Here is a simple example about parameter tuning using scikit-learn: 
+
+<http://machinelearningmastery.com/how-to-tune-algorithm-parameters-with-scikit-learn/>. 
+
+There is a class sklearn.grid_search.GridSearchCV that can help us to find the best parameter combination. The detailed document is here: 
+
+<http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html>.
 
 After parameter tuning, we can get the best parameters. Then we can start to train the classifier, save it as the binary file which can be used in the future online service.
