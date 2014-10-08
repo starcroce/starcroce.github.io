@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Hello World</title>
-    <meta name="description" content="1st blog for test">
+    <title>Text Sentiment Analysis</title>
+    
     <meta name="author" content="Yisha Wu">
 
     <!-- Enable responsive viewport -->
@@ -130,7 +130,7 @@
       <div class="container">
         
 <div class="page-header">
-  <h1>Hello World </h1>
+  <h1>Text Sentiment Analysis </h1>
 </div>
 
 <div class="row post-full">
@@ -140,9 +140,88 @@
     </div>
     <div class="content">
       
-<h3 id="about-me">About Me</h3>
+<h3 id="attention">Attention</h3>
+<p>Just for my own memo, not a public tutorial.</p>
 
-<p>Only for test. Seems cool.</p>
+<h3 id="environment">Environment</h3>
+<p>Python, NLTK, scikit-learn</p>
+
+<h3 id="preprocess">Preprocess</h3>
+<p><em>“80% of the data mining work is preprocess”</em>, cited by Winnie.</p>
+
+<p>For the raw post from our service, there are serveral preprocessing steps:</p>
+
+<ul>
+  <li>convert “@abcd” to “@USERNAME”</li>
+  <li>convert “https://www.google.com” to “URL”</li>
+  <li>convert all char to lower case</li>
+  <li>remove punctuations and tokenize</li>
+  <li>stemming or lemmatization</li>
+</ul>
+
+<p>For the first three steps, just use regex:</p>
+
+<pre><code>import re
+text = re.sub('@[^\s]+', '@USERNAME', text)
+text = re.sub('((www\.[^\s]+)|(https?://[^\s]+))', 'URL', text)
+text.lower()
+</code></pre>
+
+<p>Actually, the third step can be done at anytime. It makes no difference. Now, these data can be used for third party manual tagging, which is our potential training set.</p>
+
+<p>For removing the punctuations and tokenziation, we can use RegexTokenizer of NLTK.</p>
+
+<pre><code>from nltk.tokenize import RegexTokenizer
+tokenizer = RegenTokenizer(r'\w+')
+tokens = tokenizer.tokenize(text)
+</code></pre>
+
+<p>It will return a list of tokens without punctuations. But for the tokens, we still need to stem or lemmatize it.</p>
+
+<p>The basic difference between stemmer and lemmatizer can be found here <a href="http://stackoverflow.com/questions/17317418/stemmers-vs-lemmatizers">http://stackoverflow.com/questions/17317418/stemmers-vs-lemmatizers</a>. NLTK provides some stemmer and lemmatizer like LancasterStemmer and WordNetLemmatizer. For the specific difference, please check NLTK documentation.</p>
+
+<pre><code>from nltk.stem.lancaster import LancasterStemmer
+from nltk.stem import WordNetLemmatizer
+stemmer = LancasterStemmer()
+stemmer.stem('having')			# become 'hav'
+lemmatizer = WordNetLemmatizer()
+lemmatizer.lemmatize('dogs')		# become u'dog'
+lemmatizer.lemmatize('having', 'v')	# become 'have'
+</code></pre>
+
+<p>Need to test all of these method and choose the best way. I will write a new post about the difference between stemming and lemmatization later.</p>
+
+<h3 id="support-vector-machine">Support Vector Machine</h3>
+<p>scikit-learn provides two implementation of SVM classifier: libsvm and liblinear. The basic difference can be found here: <a href="http://stackoverflow.com/questions/11508788/whats-the-difference-between-libsvm-and-liblinear">http://stackoverflow.com/questions/11508788/whats-the-difference-between-libsvm-and-liblinear</a>.</p>
+
+<p>For linear SVM, there is an important parameter C. The basic infulence can be found here: <a href="http://stats.stackexchange.com/questions/31066/what-is-the-influence-of-c-in-svms-with-linear-kernel">http://stats.stackexchange.com/questions/31066/what-is-the-influence-of-c-in-svms-with-linear-kernel</a>. In my experiment, I tried from 1e-2 to 1e5. There are many other parameters in SVC with linear kernel or Linear SVC, but I keep them as the default. </p>
+
+<p>For the library documentation, we can check <a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html">http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html</a> and <a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html">http://scikit-learn.org/stable/modules/generated/sklearn.svm.LinearSVC.html</a>. The former is libsvm implementation and the latter is liblinear implmentation.</p>
+
+<p>In scikit-learn, the step of text classification is as follows:</p>
+
+<ul>
+  <li>load the training set</li>
+  <li>count vectorizer</li>
+  <li>tf-idf transformer</li>
+  <li>fit the classifer</li>
+</ul>
+
+<p>And step 2 and 3 can be combined together as tf-idf vectorizer.</p>
+
+<p>When load the training set, the format of the training file set should be like:</p>
+
+<ul>
+  <li>category_1_dir: file1, file2, file3, …</li>
+  <li>category_2_dir: file1, file2, file3, …</li>
+</ul>
+
+<p>I don’t want to talk about what is tf-idf and how count vectorizer and tf-idf transformer works here. I will write a new blog to specify them in the future.</p>
+
+<h4 id="parameter-tuning">Parameter Tuning</h4>
+<p>Here is a simple example about parameter tuning using scikit-learn: <a href="http://machinelearningmastery.com/how-to-tune-algorithm-parameters-with-scikit-learn/">http://machinelearningmastery.com/how-to-tune-algorithm-parameters-with-scikit-learn/</a>. There is a class sklearn.grid_search.GridSearchCV that can help us to find the best parameter combination. The detailed document is here <a href="http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html">http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html</a>.</p>
+
+<p>After parameter tuning, we can get the best parameters. Then we can start to train the classifier, save it as the binary file which can be used in the future online service.</p>
 
     </div>
 
@@ -157,9 +236,11 @@
 
   
      
-    	<li><a href="/tags.html#beginner-ref">beginner <span>1</span></a></li>
+    	<li><a href="/tags.html#NLP-ref">NLP <span>1</span></a></li>
      
-    	<li><a href="/tags.html#jekyll-ref">jekyll <span>1</span></a></li>
+    	<li><a href="/tags.html#Sentimental Analysis-ref">Sentimental Analysis <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#Text Classification-ref">Text Classification <span>1</span></a></li>
     
   
 
@@ -171,11 +252,11 @@
     <hr>
     <ul class="pagination">
     
-      <li class="prev disabled"><a>&larr; Previous</a></li>
+      <li class="prev"><a href="/2014/10/07/hello-world" title="Hello World">&laquo; Previous</a></li>
     
       <li><a href="/archive.html">Archive</a></li>
     
-      <li class="next"><a href="/2014/10/07/text-sentiment-analysis" title="Text Sentiment Analysis">Next &raquo;</a></li>
+      <li class="next disabled"><a>Next &rarr;</a>
     
     </ul>
     <hr>

@@ -8,4 +8,5 @@ http://starcroce.github.io/rss.xml
 http://starcroce.github.io/sitemap.txt
 http://starcroce.github.io/tags.html
 
+http://starcroce.github.io/2014/10/07/text-sentiment-analysis
 http://starcroce.github.io/2014/10/07/hello-world

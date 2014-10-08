@@ -7,6 +7,6 @@ tags: [beginner, jekyll]
 ---
 {% include JB/setup %}
 
-## About Me
+### About Me
 
 Only for test. Seems cool.
