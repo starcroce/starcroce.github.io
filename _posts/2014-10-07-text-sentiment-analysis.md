@@ -2,8 +2,8 @@
 layout: post
 title: "Text Sentiment Analysis"
 description:
-category: 
-tags: [NLP, Sentimental Analysis, Text Classification]
+category: tech
+tags: [Python, NLP, Sentiment Analysis, Text Classification]
 ---
 {% include JB/setup %}
 

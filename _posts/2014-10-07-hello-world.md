@@ -2,7 +2,7 @@
 layout: post
 title: "Hello World"
 description: "1st blog for test"
-category: 
+category: other
 tags: [beginner, jekyll]
 ---
 {% include JB/setup %}

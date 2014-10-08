@@ -5,8 +5,8 @@
         <description>StarCroce - Yisha Wu</description>
         <link>http://starcroce.github.io</link>
         <link>http://starcroce.github.io</link>
-        <lastBuildDate>2014-10-07T22:14:35-07:00</lastBuildDate>
-        <pubDate>2014-10-07T22:14:35-07:00</pubDate>
+        <lastBuildDate>2014-10-08T13:07:04-07:00</lastBuildDate>
+        <pubDate>2014-10-08T13:07:04-07:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -96,8 +96,8 @@ lemmatizer.lemmatize(&#39;having&#39;, &#39;v&#39;)	# become &#39;have&#39;
 
 &lt;p&gt;After parameter tuning, we can get the best parameters. Then we can start to train the classifier, save it as the binary file which can be used in the future online service.&lt;/p&gt;
 </description>
-                <link>http://starcroce.github.io/2014/10/07/text-sentiment-analysis</link>
-                <guid>http://starcroce.github.io/2014/10/07/text-sentiment-analysis</guid>
+                <link>http://starcroce.github.io/tech/2014/10/07/text-sentiment-analysis</link>
+                <guid>http://starcroce.github.io/tech/2014/10/07/text-sentiment-analysis</guid>
                 <pubDate>2014-10-07T00:00:00-07:00</pubDate>
         </item>
 
@@ -108,8 +108,8 @@ lemmatizer.lemmatize(&#39;having&#39;, &#39;v&#39;)	# become &#39;have&#39;
 
 &lt;p&gt;Only for test. Seems cool.&lt;/p&gt;
 </description>
-                <link>http://starcroce.github.io/2014/10/07/hello-world</link>
-                <guid>http://starcroce.github.io/2014/10/07/hello-world</guid>
+                <link>http://starcroce.github.io/other/2014/10/07/hello-world</link>
+                <guid>http://starcroce.github.io/other/2014/10/07/hello-world</guid>
                 <pubDate>2014-10-07T00:00:00-07:00</pubDate>
         </item>
 

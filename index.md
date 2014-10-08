@@ -1,7 +1,7 @@
 ---
 layout: page
 title: StarCroce
-tagline: my life
+tagline: Programming, Algorithm, Data, Network
 ---
 {% include JB/setup %}
 
