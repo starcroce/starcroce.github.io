@@ -97,7 +97,7 @@ Here is a simple example about parameter tuning using scikit-learn:
 
 <http://machinelearningmastery.com/how-to-tune-algorithm-parameters-with-scikit-learn/>. 
 
-There is a class sklearn.grid_search.GridSearchCV that can help us to find the best parameter combination. The detailed document is here: 
+There is a class `sklearn.grid_search.GridSearchCV` that can help us to find the best parameter combination. The detailed document is here: 
 
 <http://scikit-learn.org/stable/modules/generated/sklearn.grid_search.GridSearchCV.html>.
 
