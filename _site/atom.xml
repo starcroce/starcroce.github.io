@@ -4,13 +4,41 @@
  <title>StarCroce</title>
  <link href="http://starcroce.github.io/" rel="self"/>
  <link href="http://starcroce.github.io"/>
- <updated>2014-10-09T11:12:15-07:00</updated>
+ <updated>2014-10-09T12:09:13-07:00</updated>
  <id>http://starcroce.github.io</id>
  <author>
    <name>Yisha Wu</name>
    <email>wuyisha@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Python Encoding in My Project</title>
+   <link href="http://starcroce.github.io/tech/2014/10/09/python-encoding-in-my-project"/>
+   <updated>2014-10-09T00:00:00-07:00</updated>
+   <id>http://starcroce.github.io/tech/2014/10/09/python-encoding-in-my-project</id>
+   <content type="html">
+&lt;p&gt;Previous raw service log: ascii.&lt;/p&gt;
+
+&lt;p&gt;Preprocess function (“https://www.google.com” -&amp;gt; “URL”, “@Tom” -&amp;gt; “@USERNAME”) needs ascii format.&lt;/p&gt;
+
+&lt;p&gt;Generate random log for manual label: ascii.&lt;/p&gt;
+
+&lt;p&gt;Write manual label result into mysql database: both can work, can keep ascii.&lt;/p&gt;
+
+&lt;p&gt;Posts in MySQL database: utf-8. MySQL will convert it automatically.&lt;/p&gt;
+
+&lt;p&gt;Query post from MySQL into training file: keep utf-8. The default encoding of &lt;code&gt;sklearn.dataset.load_files()&lt;/code&gt; is utf-8.&lt;/p&gt;
+
+&lt;p&gt;After load training set, it seems can do other preprocessing like tokenzie, stemming, lemmatization, filter stopwords without considering the encoding format. Need to confirm it later.&lt;/p&gt;
+
+&lt;p&gt;Input from future online service: ascii, seems no issue based on previous experiment. Need to check if preprocess function will introduce any issue.&lt;/p&gt;
+
+&lt;p&gt;Test set: if use &lt;code&gt;sklearn.dataset.load_files()&lt;/code&gt;, they should be utf-8 and are already after the preprocessing. If we want to simulate the future online service, it should be ascii because we need to apply the preprocss function.&lt;/p&gt;
+
+&lt;p&gt;I am working on the last part of simluating future online service. For now I use UCSC demo data and manual label result of our own socila log as the training set. The test set is the bully related images.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Usage of TF IDF</title>

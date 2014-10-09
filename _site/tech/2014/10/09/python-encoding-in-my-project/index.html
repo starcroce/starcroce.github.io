@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-   <title>Hello World &larr; </title>
+   <title>Python Encoding in My Project &larr; </title>
    <meta name="author" content="Yisha Wu" />
 
    <link rel="start" href="/" />
@@ -42,7 +42,7 @@
   
 <div id="page">
 	
-  <h1 class="emphnext">Hello World</h1>
+  <h1 class="emphnext">Python Encoding in My Project</h1>
   <ul class="tag_box inline">
   
   
@@ -50,9 +50,9 @@
 
   
      
-    	<li><a href="/tags.html#beginner-ref">beginner <span>1</span></a></li>
+    	<li><a href="/tags.html#Python-ref">Python <span>2</span></a></li>
      
-    	<li><a href="/tags.html#jekyll-ref">jekyll <span>1</span></a></li>
+    	<li><a href="/tags.html#Encoding-ref">Encoding <span>1</span></a></li>
     
   
 
@@ -61,21 +61,37 @@
   </ul>
 
   
-<h3 id="about-me">About Me</h3>
+<p>Previous raw service log: ascii.</p>
 
-<p>Only for test. Seems cool.</p>
+<p>Preprocess function (“https://www.google.com” -&gt; “URL”, “@Tom” -&gt; “@USERNAME”) needs ascii format.</p>
+
+<p>Generate random log for manual label: ascii.</p>
+
+<p>Write manual label result into mysql database: both can work, can keep ascii.</p>
+
+<p>Posts in MySQL database: utf-8. MySQL will convert it automatically.</p>
+
+<p>Query post from MySQL into training file: keep utf-8. The default encoding of <code>sklearn.dataset.load_files()</code> is utf-8.</p>
+
+<p>After load training set, it seems can do other preprocessing like tokenzie, stemming, lemmatization, filter stopwords without considering the encoding format. Need to confirm it later.</p>
+
+<p>Input from future online service: ascii, seems no issue based on previous experiment. Need to check if preprocess function will introduce any issue.</p>
+
+<p>Test set: if use <code>sklearn.dataset.load_files()</code>, they should be utf-8 and are already after the preprocessing. If we want to simulate the future online service, it should be ascii because we need to apply the preprocss function.</p>
+
+<p>I am working on the last part of simluating future online service. For now I use UCSC demo data and manual label result of our own socila log as the training set. The test set is the bully related images.</p>
 
 
   <address class="signature">
     <a class="author" href="/">Yisha Wu</a> 
-    <span class="date">07 October 2014</span>
+    <span class="date">09 October 2014</span>
     <span class="location"></span>
   </address>
   
   <div class="prev-next">
   
-    <a href="/tech/2014/10/07/text-sentiment-analysis" class="next" title="Text Sentiment Analysis">Next Post &rarr;</a>
   
+    <a href="/tech/2014/10/08/usage-of-tf-idf" class="prev" title="Usage of TF IDF">&larr; Earlier Post</a>
   
   </div>
   
