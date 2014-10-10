@@ -9,7 +9,7 @@ tags: [Python, Encoding]
 
 Previous raw service log: ascii.
 
-Preprocess function ("https://www.google.com" -> "URL", "@Tom" -> "@USERNAME") needs ascii format.
+Preprocess function ("https://www.google.com" -> "URL", "@Tom" -> "@USERNAME") works fine for both ascii and utf-8.
 
 Generate random log for manual label: ascii.
 
@@ -23,6 +23,6 @@ After load training set, it seems can do other preprocessing like tokenzie, stem
 
 Input from future online service: ascii, seems no issue based on previous experiment. Need to check if preprocess function will introduce any issue.
 
-Test set: if use `sklearn.dataset.load_files()`, they should be utf-8 and are already after the preprocessing. If we want to simulate the future online service, it should be ascii because we need to apply the preprocss function.
+Test set: if use `sklearn.dataset.load_files()`, they should be utf-8 and are already after the preprocessing. If we want to simulate the future online service, it can be any format since the preprocess function doesn't care about that.
 
 I am working on the last part of simluating future online service. For now I use UCSC demo data and manual label result of our own socila log as the training set. The test set is the bully related images.
