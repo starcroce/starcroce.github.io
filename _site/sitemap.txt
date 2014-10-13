@@ -9,6 +9,7 @@ http://starcroce.github.io/info/site.html
 http://starcroce.github.io/sitemap.txt
 http://starcroce.github.io/tags.html
 
+http://starcroce.github.io/tech/2014/10/12/architecture-of-my-project
 http://starcroce.github.io/life/2014/10/10/catalan-number
 http://starcroce.github.io/tech/2014/10/09/python-encoding-in-my-project
 http://starcroce.github.io/tech/2014/10/08/usage-of-tf-idf
