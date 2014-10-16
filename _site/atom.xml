@@ -4,13 +4,99 @@
  <title>StarCroce</title>
  <link href="http://starcroce.github.io/" rel="self"/>
  <link href="http://starcroce.github.io"/>
- <updated>2014-10-12T21:30:50-07:00</updated>
+ <updated>2014-10-16T15:50:44-07:00</updated>
  <id>http://starcroce.github.io</id>
  <author>
    <name>Yisha Wu</name>
    <email>wuyisha@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Data Mining Result Analysis</title>
+   <link href="http://starcroce.github.io/tech/2014/10/16/data-mining-result-analysis"/>
+   <updated>2014-10-16T00:00:00-07:00</updated>
+   <id>http://starcroce.github.io/tech/2014/10/16/data-mining-result-analysis</id>
+   <content type="html">
+&lt;p&gt;Just want to take some notes about how to analysis the classificaiton results.&lt;/p&gt;
+
+&lt;h3 id=&quot;confusion-matrix&quot;&gt;Confusion Matrix:&lt;/h3&gt;
+
+&lt;p&gt;TP / FP / FN / TN:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;True Positive&lt;/strong&gt;: category A classified as category A.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;False Positive&lt;/strong&gt;: category B classified as category A.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;False Negative&lt;/strong&gt;: category A classified as category B.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;True Negative&lt;/strong&gt;: category B classified as category B.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The confusion matrix looks like:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://www.gepsoft.com/gepsoft/APS3KB/Chapter09/Section2/confusionmatrix.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There is another confusion matrix that exchange the posisiton of FN and FP. I don’t know which one is better.&lt;/p&gt;
+
+&lt;h3 id=&quot;sensitivity-specificity-and-other&quot;&gt;Sensitivity, Specificity and other&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Parameter&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Value&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;sensititvity (recall, true positive rate)&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;TP / (TP + FN)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;false negative rate&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;FN / (TP + FN) = 1 - recall&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;specificity (true negative rate)&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;TN / (FP + TN)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;fall-out (false positive rate)&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;FP / (FP + TN) = 1 - spec&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;positive predication value (precision)&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;TP / (TP + FP)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;false discovery rate&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;FP / (FP + TP) = 1 - ppv&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;negative prediction value&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;TN / (TN + FN)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;false omission rate&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;FN / (FN + TN)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;accuracy&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;(TP + TN) / ALL&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;f1 score&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;2 * TP / (2 * TP + FP + FN) = 2 * precision * recall / (precision + recall)&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;All the above info can be found in this &lt;a href=&quot;http://en.wikipedia.org/wiki/Confusion_matrix&quot;&gt;wiki page&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;receiver-operating-characteristic&quot;&gt;Receiver Operating Characteristic&lt;/h3&gt;
+
+&lt;p&gt;Use x = FPR and y = TPR, we can draw a point in a space from (0, 0) to (1, 1). The best position for a classifier is at top left point (0, 1), which means zero FPR and zero FNR. And the result of a random classifier will be at the line from (0, 0) to (1, 1), which is the &lt;em&gt;line of no-discrimination&lt;/em&gt;.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Architecture of My Project</title>
