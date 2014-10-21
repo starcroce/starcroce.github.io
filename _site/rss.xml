@@ -5,8 +5,8 @@
         <description>StarCroce - Yisha Wu</description>
         <link>http://starcroce.github.io</link>
         <link>http://starcroce.github.io</link>
-        <lastBuildDate>2014-10-16T15:50:44-07:00</lastBuildDate>
-        <pubDate>2014-10-16T15:50:44-07:00</pubDate>
+        <lastBuildDate>2014-10-21T11:35:36-07:00</lastBuildDate>
+        <pubDate>2014-10-21T11:35:36-07:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -154,8 +154,30 @@
 
 &lt;p&gt;When I am trying to load the training set in my local machine, it will always run into some problem. But it works fine if I run it on the server. The result may be the &lt;code&gt;.DS_Store&lt;/code&gt; file created by Mac.&lt;/p&gt;
 
-&lt;p&gt;Anyway, I don’t like that. Hope I can finish the whole service before Friday.&lt;/p&gt;
+&lt;hr /&gt;
 
+&lt;h1 id=&quot;parameters-updates&quot;&gt;Parameters (updates)&lt;/h1&gt;
+
+&lt;p&gt;LinearSVM, SVM, Naive Bayes (sklearn, nltk), SGDClassifier,&lt;/p&gt;
+
+&lt;p&gt;max_df: 0.0 - 1.0&lt;/p&gt;
+
+&lt;p&gt;stopwords: none, english&lt;/p&gt;
+
+&lt;p&gt;max_feature: none, 5000, 10000, 50000&lt;/p&gt;
+
+&lt;p&gt;ngram: 1, 2, 3&lt;/p&gt;
+
+&lt;p&gt;sublinear_tf: true, false&lt;/p&gt;
+
+&lt;p&gt;tokenizer: stem, lemma, other&lt;/p&gt;
+
+&lt;p&gt;classifier parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SVM: C&lt;/li&gt;
+  &lt;li&gt;SGDClassifier: alpha, penalty, n_iter&lt;/li&gt;
+&lt;/ul&gt;
 </description>
                 <link>http://starcroce.github.io/tech/2014/10/12/architecture-of-my-project</link>
                 <guid>http://starcroce.github.io/tech/2014/10/12/architecture-of-my-project</guid>

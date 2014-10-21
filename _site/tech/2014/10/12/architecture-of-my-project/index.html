@@ -56,8 +56,6 @@
      
     	<li><a href="/tags.html#Data Mining-ref">Data Mining <span>3</span></a></li>
      
-    	<li><a href="/tags.html#Network-ref">Network <span>1</span></a></li>
-     
     	<li><a href="/tags.html#Text Classification-ref">Text Classification <span>3</span></a></li>
      
     	<li><a href="/tags.html#Sentiment Analysis-ref">Sentiment Analysis <span>2</span></a></li>
@@ -124,8 +122,30 @@
 
 <p>When I am trying to load the training set in my local machine, it will always run into some problem. But it works fine if I run it on the server. The result may be the <code>.DS_Store</code> file created by Mac.</p>
 
-<p>Anyway, I don’t like that. Hope I can finish the whole service before Friday.</p>
+<hr />
 
+<h1 id="parameters-updates">Parameters (updates)</h1>
+
+<p>LinearSVM, SVM, Naive Bayes (sklearn, nltk), SGDClassifier,</p>
+
+<p>max_df: 0.0 - 1.0</p>
+
+<p>stopwords: none, english</p>
+
+<p>max_feature: none, 5000, 10000, 50000</p>
+
+<p>ngram: 1, 2, 3</p>
+
+<p>sublinear_tf: true, false</p>
+
+<p>tokenizer: stem, lemma, other</p>
+
+<p>classifier parameters:</p>
+
+<ul>
+  <li>SVM: C</li>
+  <li>SGDClassifier: alpha, penalty, n_iter</li>
+</ul>
 
 
   <address class="signature">

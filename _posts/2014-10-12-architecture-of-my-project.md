@@ -3,7 +3,7 @@ layout: post
 title: "Architecture of My Project"
 description: ""
 category: tech
-tags: [Python, NLP, Data Mining, Network, Text Classification, Sentiment Analysis]
+tags: [Python, NLP, Data Mining, Text Classification, Sentiment Analysis]
 ---
 {% include JB/setup %}
 
@@ -56,5 +56,25 @@ Basically what we need are the following objects:
 
 When I am trying to load the training set in my local machine, it will always run into some problem. But it works fine if I run it on the server. The result may be the `.DS_Store` file created by Mac.
 
-Anyway, I don't like that. Hope I can finish the whole service before Friday.
+---
 
+# Parameters (updates)
+
+LinearSVM, SVM, Naive Bayes (sklearn, nltk), SGDClassifier,
+
+max_df: 0.0 - 1.0
+
+stopwords: none, english
+
+max_feature: none, 5000, 10000, 50000
+
+ngram: 1, 2, 3
+
+sublinear_tf: true, false
+
+tokenizer: stem, lemma, other
+
+classifier parameters:
+
+*	SVM: C
+*	SGDClassifier: alpha, penalty, n_iter
