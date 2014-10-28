@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-   <title>Categories &larr; </title>
+   <title>Relase Note &larr; </title>
    <meta name="author" content="Yisha Wu" />
 
    <link rel="start" href="/" />
@@ -42,139 +42,88 @@
   
 <div id="page">
 	
-<h1 class="emphnext">Categories</h1>
-
-
-<ul class="tag_box inline">
+  <h1 class="emphnext">Relase Note</h1>
+  <ul class="tag_box inline">
   
   
 
 
   
      
-    	<li><a href="/categories.html#other-ref">
-    		other <span>1</span>
-    	</a></li>
+    	<li><a href="/tags.html#Text Classification-ref">Text Classification <span>4</span></a></li>
      
-    	<li><a href="/categories.html#tech-ref">
-    		tech <span>6</span>
-    	</a></li>
+    	<li><a href="/tags.html#Sentiment Analysis-ref">Sentiment Analysis <span>3</span></a></li>
      
-    	<li><a href="/categories.html#life-ref">
-    		life <span>1</span>
-    	</a></li>
+    	<li><a href="/tags.html#NLP-ref">NLP <span>4</span></a></li>
+     
+    	<li><a href="/tags.html#Data Mining-ref">Data Mining <span>4</span></a></li>
     
   
 
 
+
+  </ul>
+
+  
+<p>Just to take some notes about 1st release parameters.</p>
+
+<ul>
+  <li>max_df: 0.2</li>
+  <li>n_gram: (1, 2)</li>
+  <li>tokenizer: StemTokenizer()</li>
+  <li>stop_words: ‘english’</li>
+  <li>C: 1.0</li>
 </ul>
 
+<p>Preprocess:</p>
 
- 
-  <h2 id="other-ref">other</h2>
-  <ul>
-      
-    
+<ul>
+  <li>normalization</li>
+  <li>convert to lower</li>
+  <li>remove punctuation</li>
+  <li>stem</li>
+  <li>remove stopwords</li>
+</ul>
+
+<p>All the previous may be changed according to the updated data set. And the service code needs to be modified according to the updated training result.</p>
 
 
+  <address class="signature">
+    <a class="author" href="/">Yisha Wu</a> 
+    <span class="date">28 October 2014</span>
+    <span class="location"></span>
+  </address>
   
-    
-      
-      	
-      	<li><a href="/other/2014/10/07/hello-world">Hello World</a></li>
-      	
-      
-    
+  <div class="prev-next">
   
-
-
-
-  </ul>
- 
-  <h2 id="tech-ref">tech</h2>
-  <ul>
-      
-    
-
-
   
-    
-      
-      	
-      	<li><a href="/tech/2014/10/28/relase-note">Relase Note</a></li>
-      	
-      
-    
+    <a href="/tech/2014/10/16/data-mining-result-analysis" class="prev" title="Data Mining Result Analysis">&larr; Earlier Post</a>
   
-    
-      
-      	
-      	<li><a href="/tech/2014/10/16/data-mining-result-analysis">Data Mining Result Analysis</a></li>
-      	
-      
-    
+  </div>
   
-    
-      
-      	
-      	<li><a href="/tech/2014/10/12/architecture-of-my-project">Architecture of My Project</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/tech/2014/10/09/python-encoding-in-my-project">Python Encoding in My Project</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/tech/2014/10/08/usage-of-tf-idf">Usage of TF IDF</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/tech/2014/10/07/text-sentiment-analysis">Text Sentiment Analysis</a></li>
-      	
-      
-    
-  
-
-
-
-  </ul>
- 
-  <h2 id="life-ref">life</h2>
-  <ul>
-      
-    
-
-
-  
-    
-      
-      	
-      	<li><a href="/life/2014/10/10/catalan-number">Catalan Number</a></li>
-      	
-      
-    
-  
-
-
-
-  </ul>
-
-
-
-
 </div><!-- End Page -->
+
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'starcrocegithubio'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
 
 
   

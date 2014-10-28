@@ -4,13 +4,43 @@
  <title>StarCroce</title>
  <link href="http://starcroce.github.io/" rel="self"/>
  <link href="http://starcroce.github.io"/>
- <updated>2014-10-21T11:35:36-07:00</updated>
+ <updated>2014-10-28T16:26:02-07:00</updated>
  <id>http://starcroce.github.io</id>
  <author>
    <name>Yisha Wu</name>
    <email>wuyisha@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Relase Note</title>
+   <link href="http://starcroce.github.io/tech/2014/10/28/relase-note"/>
+   <updated>2014-10-28T00:00:00-07:00</updated>
+   <id>http://starcroce.github.io/tech/2014/10/28/relase-note</id>
+   <content type="html">
+&lt;p&gt;Just to take some notes about 1st release parameters.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;max_df: 0.2&lt;/li&gt;
+  &lt;li&gt;n_gram: (1, 2)&lt;/li&gt;
+  &lt;li&gt;tokenizer: StemTokenizer()&lt;/li&gt;
+  &lt;li&gt;stop_words: ‘english’&lt;/li&gt;
+  &lt;li&gt;C: 1.0&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Preprocess:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;normalization&lt;/li&gt;
+  &lt;li&gt;convert to lower&lt;/li&gt;
+  &lt;li&gt;remove punctuation&lt;/li&gt;
+  &lt;li&gt;stem&lt;/li&gt;
+  &lt;li&gt;remove stopwords&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All the previous may be changed according to the updated data set. And the service code needs to be modified according to the updated training result.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Data Mining Result Analysis</title>

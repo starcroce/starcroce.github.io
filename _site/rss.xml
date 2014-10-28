@@ -5,10 +5,40 @@
         <description>StarCroce - Yisha Wu</description>
         <link>http://starcroce.github.io</link>
         <link>http://starcroce.github.io</link>
-        <lastBuildDate>2014-10-21T11:35:36-07:00</lastBuildDate>
-        <pubDate>2014-10-21T11:35:36-07:00</pubDate>
+        <lastBuildDate>2014-10-28T16:26:02-07:00</lastBuildDate>
+        <pubDate>2014-10-28T16:26:02-07:00</pubDate>
         <ttl>1800</ttl>
 
+
+        <item>
+                <title>Relase Note</title>
+                <description>
+&lt;p&gt;Just to take some notes about 1st release parameters.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;max_df: 0.2&lt;/li&gt;
+  &lt;li&gt;n_gram: (1, 2)&lt;/li&gt;
+  &lt;li&gt;tokenizer: StemTokenizer()&lt;/li&gt;
+  &lt;li&gt;stop_words: ‘english’&lt;/li&gt;
+  &lt;li&gt;C: 1.0&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Preprocess:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;normalization&lt;/li&gt;
+  &lt;li&gt;convert to lower&lt;/li&gt;
+  &lt;li&gt;remove punctuation&lt;/li&gt;
+  &lt;li&gt;stem&lt;/li&gt;
+  &lt;li&gt;remove stopwords&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All the previous may be changed according to the updated data set. And the service code needs to be modified according to the updated training result.&lt;/p&gt;
+</description>
+                <link>http://starcroce.github.io/tech/2014/10/28/relase-note</link>
+                <guid>http://starcroce.github.io/tech/2014/10/28/relase-note</guid>
+                <pubDate>2014-10-28T00:00:00-07:00</pubDate>
+        </item>
 
         <item>
                 <title>Data Mining Result Analysis</title>
