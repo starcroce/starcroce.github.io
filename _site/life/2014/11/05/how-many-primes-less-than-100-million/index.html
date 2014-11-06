@@ -1,0 +1,373 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>How Many Primes Less Than 100 Millison &larr; </title>
+   <meta name="author" content="Yisha Wu" />
+
+   <link rel="start" href="/" />
+
+	
+	
+	
+	
+
+   <!-- syntax highlighting CSS -->
+   <link rel="stylesheet" href="/assets/themes/mark-reid/css/syntax.css" type="text/css" />
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/assets/themes/mark-reid/css/screen.css" type="text/css" />
+
+</head>
+<body id="">
+<div id="site">
+  
+  <div id="header">
+    <h1>
+    	<a href="/" title="StarCroce">StarCroce</a>
+    	<span class="byline">&larr; <a href="/">Yisha Wu</a></span>
+    </h1>
+    <ul class="nav">
+      <li><a class="home" href="/">Home</a></li>
+      <li><a  href="/archive.html">Archive</a></li>
+      <li><a  href="/pages.html">Pages</a></li>
+      <li><a  href="/categories.html">Categories</a></li>
+      <li><a  href="/tags.html">Tags</a></li>
+    </ul>
+  </div>
+
+  
+<div id="page">
+	
+  <h1 class="emphnext">How Many Primes Less Than 100 Millison</h1>
+  <ul class="tag_box inline">
+  
+  
+
+
+  
+     
+    	<li><a href="/tags.html#Algorithm-ref">Algorithm <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#Maths-ref">Maths <span>3</span></a></li>
+     
+    	<li><a href="/tags.html#C++-ref">C++ <span>1</span></a></li>
+    
+  
+
+
+
+  </ul>
+
+  
+<p>偶然看到一道题目求一亿以内的质数，然后想起来我好像被这种题目坑了好几次= =。。。真是不长记性。。。索性这次就一撸到底想想清楚怎么求质数。。。</p>
+
+<h3 id="section">传统解法</h3>
+
+<p>按照小学奥赛的传统解法，判断 x 是不是质数的方法就是 x 不能被从 2 到 x-1 的所有整数整除，显而易见这么做的话复杂度上限好像是 O(n^2)？，嗯无法直视。。。不过真的是这样吗？</p>
+
+<p>然后稍微做下改进，为什么要 2 到 x-1 呢？明明 2 到 sqrt(x) 就可以了嘛。。。但很容易发现，这个改进其实有没有都一样，因为如果 x 是合数，那么我们肯定会在 2 到 sqrt(x) 之间的某个数上跳出判断是否为质数的循环，所有传统解法看似复杂度 O(n^2)，但是实际应用中好像会退化到 O(n^1.5)。。。不过，还是那个问题，真的是这样吗？</p>
+
+<p>把传统解法压榨到极限，那么就是对于 x，我们检查从 2 到 sqrt(x) 之间的所有质数，看上去好像很有道理的样子，好像可以省了好多计算。。。我们知道一般来说，对于不大于 x 的质数个数，大概可以近似成 x / lnx，于是这个改进的复杂度就变成了 O(n * sqrt(n) / ln(sqrt(n))) = O(n^1.5 / (2ln n))。。。虽然不知道我写的是什么，但是看上去还是很厉害的样子。。。可是还是一样的问题，不管用哪种改进，break 的那次肯定是 2 到 sqrt(n) 之间的某个质数。。。所以我觉得所有传统解法的复杂度最后都会退化成 O(n^1.5 / (2ln n))，不过常数项上肯定有差距。。。</p>
+
+<p>嗯以上都是我瞎算的，数学不行编不下去了。。。</p>
+
+<p>给个 cpp 实现吧</p>
+
+<pre><code>int getPrimes(int n) {
+    vector&lt;int&gt; primeNum;
+    primeNum.push_back(2);
+    for(int i = 3; i &lt;= n; i++) {
+        int threshold = (int)sqrt(i) + 1;
+        int j = 0;
+        bool flag = true;
+        while(primeNum[j] &lt;= threshold) {
+            if(i % primeNum[j] == 0) {
+                flag = false;
+                break;
+            }
+            j++;
+        }
+        if(flag == true) {
+            primeNum.push_back(i);
+        }
+    }
+    return primeNum.size();
+}
+</code></pre>
+
+<p>我知道肯定有代码层的优化，目前就这么着吧。。。</p>
+
+<h3 id="eratosthenes-">Eratosthenes 筛法</h3>
+
+<p>大概方法就是列一个 2~n 的表，从 3 开始，先标记 2 的倍数，剩下第一个是 3，然后标记 3 的倍数，剩下第一个是 5，再标记 5 的倍数。。。以此类推，表上剩下的就是小于 n 的质数了。。。据说复杂度是 O(nloglogn)，看上去好高大上的样子。。。以下是 cpp 实现：</p>
+
+<pre><code>int getPrimes_Eratosthenes(int num) {
+    vector&lt;bool&gt; isPrime(num+1, true);
+    isPrime[0] = false; isPrime[1] = false;
+    for(int i = 2; i &lt;= num; i++) {
+        if(isPrime[i] == true) {
+            for(int j = i * 2; j &lt;= num; j += i) {
+                isPrime[j] = false;
+            }
+        }
+    }
+    int res = 0;
+    for(int i = 2; i &lt;= num; i++) {
+        if(isPrime[i] == true) {
+            res++;
+        }
+    }
+    return res;
+}
+</code></pre>
+
+<p>看上去很理想的样子，但为什么复杂度不是 O(n) 呢？很简单，因为并不是每个数都只处理了一遍，比如 6，在 2 的倍数那轮标记了一下，在 3 的倍数那轮又被标记了一下。。。也就是说，对于每个质数 p，都要做 n/p 次操作，对于小于 n 的所有质数的倒数和，这个值是 loglogn。。。证明方法可以直接看 <a href="http://en.wikipedia.org/wiki/Divergence_of_the_sum_of_the_reciprocals_of_the_primes">wiki</a>，大神也可以自己验证下。。。</p>
+
+<h3 id="euler-">Euler 筛法</h3>
+
+<p>嗯听名字就知道是很给力的解法。。。当年被 Euler 虐的死去活来的。。。先上代码吧。。。</p>
+
+<pre><code>int getPrimes_Euler(int num) {
+    vector&lt;bool&gt; isPrime(num+1, false);
+    vector&lt;int&gt; prevPrimes;
+    for(int i = 2; i &lt;= num; i++) {
+        if(isPrime[i] == false) {
+            prevPrimes.push_back(i);
+        }
+        for(int j = 0; j &lt; prevPrimes.size(); j++) {
+            if(i * prevPrimes[j] &gt; num) {
+                break;
+            }
+            isPrime[i * prevPrimes[j]] = true;
+            if(i % prevPrimes[j] == 0) {
+                break;
+            }
+        }
+    }
+    return prevPrimes.size();
+}
+</code></pre>
+
+<p>Euler 筛法是 O(n) 的，因为每个数都被它最小的质因子标记且只标记一次，代码中<code>if(i % prevPrimes[j] == 0)</code>这里保证了这一点。。。</p>
+
+<p>假设合数 n 的最小质因数为 p，n = pm = p’m’, (p &lt; p’, m &gt; m’)，当<code>prevPrmes[j] == p</code>时， n 被标记，接下来执行下面的<code>if</code>语句，直接跳出循环，所以 p’ 不会被遍历到，从而保证每个数只会被标记一次，因为复杂度为 O(n)。。。</p>
+
+<h3 id="section-1">运行时间分析</h3>
+
+<p>硬件环境：</p>
+
+<pre><code>Model Name:         MacBook Pro
+Model Identifier:   MacBookPro11,1
+Processor Name:     Intel Core i5
+Processor Speed:    2.4 GHz
+Number of Processors:   1
+Total Number of Cores:  2
+L2 Cache (per Core):    256 KB
+L3 Cache:   3 MB
+Memory:     8 GB
+</code></pre>
+
+<p>编译环境：</p>
+
+<pre><code>➜  ~  g++ -v
+Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+Apple LLVM version 6.0 (clang-600.0.54) (based on LLVM 3.5svn)
+Target: x86_64-apple-darwin14.0.0
+Thread model: posix
+</code></pre>
+
+<p>全部代码：</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;cmath&gt;
+#include &lt;ctime&gt;
+using namespace std;
+
+int getPrimes(int n) {
+    vector&lt;int&gt; primeNum;
+    primeNum.push_back(2);
+    for(int i = 3; i &lt;= n; i++) {
+        int threshold = (int)sqrt(i);
+        int j = 0;
+        bool flag = true;
+        while(primeNum[j] &lt;= threshold) {
+            if(i % primeNum[j] == 0) {
+                flag = false;
+                break;
+            }
+            j++;
+        }
+        if(flag == true) {
+            primeNum.push_back(i);
+        }
+    }
+    return primeNum.size();
+}
+
+int getPrimes_Eratosthenes(int num) {
+    vector&lt;bool&gt; isPrime(num+1, true);
+    isPrime[0] = false; isPrime[1] = false;
+    for(int i = 2; i &lt;= num; i++) {
+        if(isPrime[i] == true) {
+            for(int j = i * 2; j &lt;= num; j += i) {
+                isPrime[j] = false;
+            }
+        }
+    }
+    int res = 0;
+    for(int i = 2; i &lt;= num; i++) {
+        if(isPrime[i] == true) {
+            res++;
+        }
+    }
+    return res;
+}
+
+int getPrimes_Euler(int num) {
+    vector&lt;bool&gt; isPrime(num+1, false);
+    vector&lt;int&gt; prevPrimes;
+    for(int i = 2; i &lt;= num; i++) {
+        if(isPrime[i] == false) {
+            prevPrimes.push_back(i);
+        }
+        for(int j = 0; j &lt; prevPrimes.size(); j++) {
+            if(i * prevPrimes[j] &gt; num) {
+                break;
+            }
+            isPrime[i * prevPrimes[j]] = true;
+            if(i % prevPrimes[j] == 0) {
+                break;
+            }
+        }
+    }
+    return prevPrimes.size();
+}
+
+int main(int argc, char const *argv[])
+{
+    int num    = 10000000;
+    clock_t t0 = clock();
+    int res1   = getPrimes(num);
+    clock_t t1 = clock();
+    int res2   = getPrimes_Eratosthenes(num);
+    clock_t t2 = clock();
+    int res3   = getPrimes_Euler(num);
+    clock_t t3 = clock();
+    cout&lt;&lt;res1&lt;&lt;' '&lt;&lt;res2&lt;&lt;' '&lt;&lt;res3&lt;&lt;endl;
+    cout&lt;&lt;(double)(t1-t0)/CLOCKS_PER_SEC&lt;&lt;' ';
+    cout&lt;&lt;(double)(t2-t1)/CLOCKS_PER_SEC&lt;&lt;' ';
+    cout&lt;&lt;(double)(t3-t2)/CLOCKS_PER_SEC&lt;&lt;endl;
+    return 0;
+}
+</code></pre>
+
+<p>g++ -O1, -O2, -O3 每种各实验10次，取平均值。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Parameter</th>
+      <th style="text-align: left">O1</th>
+      <th style="text-align: left">O2</th>
+      <th>O3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Traditional</td>
+      <td style="text-align: left">1.859249</td>
+      <td style="text-align: left">1.058514</td>
+      <td>1.051012</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Eratosthenes</td>
+      <td style="text-align: left">0.7223996</td>
+      <td style="text-align: left">0.0754521</td>
+      <td>0.0752899</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Euler</td>
+      <td style="text-align: left">0.4069224</td>
+      <td style="text-align: left">0.0837832</td>
+      <td>0.0859442</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>嗯非常有趣的结果。。。不清楚编译器怎么优化的。。。这个目前已经超出我的水平了。。。</p>
+
+
+  <address class="signature">
+    <a class="author" href="/">Yisha Wu</a> 
+    <span class="date">05 November 2014</span>
+    <span class="location"></span>
+  </address>
+  
+  <div class="prev-next">
+  
+  
+    <a href="/tech/2014/10/28/relase-note" class="prev" title="Relase Note">&larr; Earlier Post</a>
+  
+  </div>
+  
+</div><!-- End Page -->
+
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'starcrocegithubio'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+
+
+  
+  <div id="footer">
+  	<address>
+  		<span class="copyright">
+  			Content by <a href="/info/site.html">Yisha Wu</a>. Design by 
+  			<a href="http://mark.reid.name/">Mark Reid</a>
+  			<br/>
+  			(<a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Some rights reserved</a>)			
+  		</span>
+  		<span class="engine">
+  			Powered by <a href="http://github.com/mojombo/jekyll/" title="A static, minimalist CMS">Jekyll</a>
+  		</span>
+  	</address>
+  </div>
+  
+</div>
+
+<!--[if IE 6]>
+<script type="text/javascript"> 
+	/*Load jQuery if not already loaded*/ if(typeof jQuery == 'undefined'){ document.write("<script type=\"text/javascript\"   src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js\"></"+"script>"); var __noconflict = true; } 
+	var IE6UPDATE_OPTIONS = {
+		icons_path: "http://static.ie6update.com/hosted/ie6update/images/"
+	}
+</script>
+<script type="text/javascript" src="http://static.ie6update.com/hosted/ie6update/ie6update.js"></script>
+<![endif]-->
+
+  
+</body>
+</html>
+
