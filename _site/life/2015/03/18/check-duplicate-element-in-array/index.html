@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-   <title>Relase Note &larr; </title>
+   <title>Check Duplicate Element in Array &larr; </title>
    <meta name="author" content="Yisha Wu" />
 
    <link rel="start" href="/" />
@@ -42,7 +42,7 @@
   
 <div id="page">
 	
-  <h1 class="emphnext">Relase Note</h1>
+  <h1 class="emphnext">Check Duplicate Element in Array</h1>
   <ul class="tag_box inline">
   
   
@@ -50,13 +50,9 @@
 
   
      
-    	<li><a href="/tags.html#Text Classification-ref">Text Classification <span>4</span></a></li>
+    	<li><a href="/tags.html#Algorithm-ref">Algorithm <span>3</span></a></li>
      
-    	<li><a href="/tags.html#Sentiment Analysis-ref">Sentiment Analysis <span>3</span></a></li>
-     
-    	<li><a href="/tags.html#NLP-ref">NLP <span>4</span></a></li>
-     
-    	<li><a href="/tags.html#Data Mining-ref">Data Mining <span>4</span></a></li>
+    	<li><a href="/tags.html#Maths-ref">Maths <span>4</span></a></li>
     
   
 
@@ -65,41 +61,80 @@
   </ul>
 
   
-<p>Just to take some notes about 1st release parameters.</p>
+<p>随手看到的一道题，对于一个 size 为 n 的数组，里面每个元素的值都在 0 到 n-1 之间，返回这个数组中是否有重复元素。</p>
 
-<ul>
-  <li>max_df: 0.2</li>
-  <li>n_gram: (1, 2)</li>
-  <li>tokenizer: StemTokenizer()</li>
-  <li>stop_words: ‘english’</li>
-  <li>C: 1.0</li>
-</ul>
+<p>用 hash table 的解法就不说了，想一下有没有 O(1) 的额外空间复杂度，然后觉得跟 LeetCode 的一道 first missing positive 很像。大概的做法就是如下：</p>
 
-<p>Preprocess:</p>
+<ol>
+  <li>if A[x] == x, move forward, tmp = -1</li>
+  <li>if A[x] = y, swap tmp and A[x], so A[x] = -1, tmp = y, check A[y]</li>
+  <li>if A[y] == y, there is a duplicate element</li>
+  <li>if A[y] = z, swap tmp and A[y], so A[y] = y, tmp = z, check A[z]</li>
+  <li>same step as above …</li>
+</ol>
 
-<ul>
-  <li>normalization</li>
-  <li>convert to lower</li>
-  <li>remove punctuation</li>
-  <li>stem</li>
-  <li>remove stopwords</li>
-</ul>
+<p>这样的话，对于 <code>A[x_0] = x_1, A[x_1] = x_2, A[x_3] = x_4, ..., A[x_n-1] = x_n, A[x_n] = x_0</code> 的一组元素，经过 n 次 swap 之后，就会满足 <code>A[i] = i</code>。</p>
 
-<p>All the previous may be changed according to the updated data set. And the service code needs to be modified according to the updated training result.</p>
+<p>如果整个数组没有重复元素，那么必定会在 n 次 swap 之后使得任意 <code>A[i] = i</code>，这样的话就可以直接返回 <code>false</code>。先上代码：</p>
+
+<pre><code>#include &lt;algorithm&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+bool hasDuplicate(int A[], int n)
+{
+	int count = 0, pos = 0, tmp = -1;
+	while (count &lt; n)
+	{
+    	while (A[pos] == pos)
+    	{
+        	pos++;
+    	}
+    	if (pos &gt;= n)
+    	{
+        	break;
+    	}
+    	if (tmp == -1)
+    	{
+        	swap(tmp, A[pos]);
+    	}
+    	else if (tmp == A[tmp])
+    	{
+        	return true;
+    	}
+    	else
+    	{
+        	swap(tmp, A[tmp]);
+    	}
+	}
+	return false;
+}
+
+int main(int argc, char const *argv[])
+{
+	int A[] = {1, 2, 3, 1};
+	cout&lt;&lt;hasDuplicate(A, 4)&lt;&lt;endl;
+	return 0;
+}
+</code></pre>
+
+<p>内循环保证了 <code>pos</code> 永远指向第一个 <code>A[i] != i</code> 的位置，对于没有重复元素的情况，之前已经分析过会保证所有 <code>A[i] = i</code>，从而使得 <code>pos = n</code>，退出循环，返回 <code>false</code>。</p>
+
+<p>对于存在重复元素，内循环每次 <code>pos++</code> 也保证了我们一定会碰到 <code>tmp = A[tmp]</code>，即使不在 swap 的过程中遇到，跳出内循环之后也会遇到这个情况。</p>
+
+<p>复杂度分析的话，对于 n 个 <code>A[i] != i</code>，需要 n 次 swap 操作使得 <code>A[i] = i</code>，如果 array 里有 m 个 <code>A[i] = i</code> 以及 n 个 <code>A[i] != i</code>，时间复杂度应该就是 O(m + 2n)。</p>
 
 
   <address class="signature">
     <a class="author" href="/">Yisha Wu</a> 
-    <span class="date">28 October 2014</span>
+    <span class="date">18 March 2015</span>
     <span class="location"></span>
   </address>
   
   <div class="prev-next">
   
-    <a href="/life/2014/11/05/how-many-primes-less-than-100-million" class="next" title="How Many Primes Less Than 100 Million">Next Post &rarr;</a>
   
-  
-    <a href="/tech/2014/10/16/data-mining-result-analysis" class="prev" title="Data Mining Result Analysis">&larr; Earlier Post</a>
+    <a href="/life/2014/11/05/how-many-primes-less-than-100-million" class="prev" title="How Many Primes Less Than 100 Million">&larr; Earlier Post</a>
   
   </div>
   
