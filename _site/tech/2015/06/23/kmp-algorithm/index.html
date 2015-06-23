@@ -1,0 +1,236 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+   <title>KMP Algorithm &larr; </title>
+   <meta name="author" content="Yisha Wu" />
+
+   <link rel="start" href="/" />
+
+	
+	
+	
+	
+
+   <!-- syntax highlighting CSS -->
+   <link rel="stylesheet" href="/assets/themes/mark-reid/css/syntax.css" type="text/css" />
+
+   <!-- Homepage CSS -->
+   <link rel="stylesheet" href="/assets/themes/mark-reid/css/screen.css" type="text/css" />
+
+</head>
+<body id="">
+<div id="site">
+  
+  <div id="header">
+    <h1>
+    	<a href="/" title="StarCroce">StarCroce</a>
+    	<span class="byline">&larr; <a href="/">Yisha Wu</a></span>
+    </h1>
+    <ul class="nav">
+      <li><a class="home" href="/">Home</a></li>
+      <li><a  href="/archive.html">Archive</a></li>
+      <li><a  href="/pages.html">Pages</a></li>
+      <li><a  href="/categories.html">Categories</a></li>
+      <li><a  href="/tags.html">Tags</a></li>
+    </ul>
+  </div>
+
+  
+<div id="page">
+	
+  <h1 class="emphnext">KMP Algorithm</h1>
+  <ul class="tag_box inline">
+  
+  
+
+
+  
+     
+    	<li><a href="/tags.html#Python-ref">Python <span>4</span></a></li>
+     
+    	<li><a href="/tags.html#Algorithm-ref">Algorithm <span>4</span></a></li>
+    
+  
+
+
+
+  </ul>
+
+  
+<h2 id="section">杂</h2>
+
+<p>我一直觉得，在一般的面试题中，KMP 都是一个屠龙之技然并卵的存在，毕竟如果真的问到 strstr 的题目，即使不考虑非法输入的情况下，能够白板一遍 bugfree 写出暴力解已经差不多了，不过考虑到离我跳槽还有至少半年的时间，那么就当复习下众多经典算法也好。</p>
+
+<h2 id="kmp">什么是 KMP</h2>
+
+<p>我是必然没有兴趣拿 wiki 砸过来的，所以就举个栗子吧：</p>
+
+<pre><code>s1 = abababcab
+s2 = ababc
+</code></pre>
+
+<p>一开始从 <code>i = j = 0</code> 开始比较，可见当 <code>i = j = 4</code> 的时候 <code>s1[i] != s2[j]</code>，所以在暴力解的情况下我们要做的是将 <code>i</code> reset 到 1，同时将 <code>j</code> reset到 0，并重新开始比较。这个时候就发现了 <code>i</code> 其实是有回溯的，这也就造成了暴力解的复杂度会变成 O(n^2)。</p>
+
+<p>但是我们总归是可以做出一点优化的。当 <code>i = j = 4</code> 的时候，我们知道了其实之前都是完全匹配的，并且 <code>s2</code> 的前四位是 <code>abab</code>。在这种情况下其实完全没有必要继续比较 <code>s1[1]</code> 和 <code>s2[0]</code>，因为这个肯定不相等。肉眼观察出的可以实现的优化是比较 <code>s1[2]</code> 和 <code>s1[0]</code>。也就是如下的比较方式:</p>
+
+<pre><code>s1: abababcab
+s2:   ababc
+</code></pre>
+
+<p>这个的优化操作就是，固定住 <code>i = 4</code>，并将其与 <code>s2[2]</code> 进行比较。原因就是在 <code>s1[i]</code> 与 <code>s2[4]</code> 匹配失败的时候，我们确定的是 <code>s1[i-4:i] = abab</code>，这样我们要做的就是让 <code>s2</code> 对齐 <code>s1</code> 的第二个 ab，这样的话我们可以跳过比较 <code>s1[i-2:i]</code> 与 <code>s2[:2]</code>，因为他们都是 ab。我们可以直接开始比较 <code>s1[i]</code> 和 <code>s2[2]</code>，如果成功，就可以继续比较下一个，如果不成功，则继续用上述的优化手段。</p>
+
+<p>于是我们就可以引入一个跳转表 (jump table) 的概念。根据上面的例子， 在 <code>s1[i]</code> 与 <code>s2[4]</code> 匹配失败的时候，我们跳转到 <code>s2[2]</code>，开始比较 <code>s1[i]</code> 与 <code>s2[2]</code>。所以在跳转表上，4 对应的跳转值是 2。如果我们有了这么一个关于 <code>s2</code> 所有 index 的跳转表的话，整个的匹配过程就会非常简单，大体上如下所示:</p>
+
+<pre><code>while i &lt; len(s1) and j &lt; len(s2):
+	if s1[i] == s2[j]:
+		i += 1
+		j += 1
+	else:
+		j = jump_table[j]
+		# i += 1 if we need to compare from the s2 start
+</code></pre>
+
+<p>注意我上面只是<strong>伪代码</strong>。</p>
+
+<h2 id="section-1">跳转表</h2>
+
+<p>现在问题变成了如何生成跳转表。假设跳转表是 <code>next[]</code>，我们开始慢慢分情况讨论：</p>
+
+<h3 id="s1i--s20-">如果 <code>s1[i]</code> 和 <code>s2[0]</code> 匹配失败：</h3>
+
+<p>那就没啥好说的，直接开始比较 <code>s1[i+1]</code> 和 <code>s2[0]</code>，没啥优化可言。这个情况下我们用 <code>next[0] = -1</code> 这么一个特殊值说明需要移动 <code>s1</code> 的 index。</p>
+
+<h3 id="s1i--s21-">如果 <code>s1[i]</code> 和 <code>s2[1]</code> 匹配失败：</h3>
+
+<p>也没啥好说的，开始比较 <code>s1[i]</code> 和 <code>s2[0]</code>，于是我们知道 <code>next[1] = 0</code>。</p>
+
+<h3 id="s1i--s22-">如果 <code>s1[i]</code> 和 <code>s2[2]</code> 匹配失败：</h3>
+
+<p>这个时候就有可以优化的地方了，具体要取决与 <code>s2[1]</code> 的值。举如下的两个例子：</p>
+
+<h4 id="s1--aaxa-s2--aac"><code>s1 = aaxa</code>, <code>s2 = aac</code></h4>
+
+<p>这种情况下，下一步的优化后比较形式应该是这样的：</p>
+
+<pre><code>s1: aaxa
+s2:  aac
+</code></pre>
+
+<p><code>s1[2] = x</code> 应该与 <code>s2[1] = a</code> 比较，因为我们根据 <code>s2</code> 的自身已经可以确定 <code>s1[1] = s2[0] = a</code>。这样的话我们知道 <code>next[2] = 1</code>。</p>
+
+<h4 id="s1--abxa-s2--abc"><code>s1 = abxa</code>, <code>s2 = abc</code></h4>
+
+<p>这种情况下优化好像没什么卵用，只能像之前一样比较 <code>s1[2]</code> 和 <code>s2[0]</code>，既如下所示：</p>
+
+<pre><code>s1: abxa
+s2:   abc
+</code></pre>
+
+<p>这样的话我们就可以得出，在这类情况下，<code>next[2] = 0</code>。</p>
+
+<p>这个时候，要计算跳转值，我们就要弄清跳转值在这里的作用是什么。假设 <code>next[m] = n</code>，那么首先我们可以知道，对于 <code>s1[i-m:i]</code> 和 <code>s2[:m]</code> 这 m 个 char 是完全一样的。接下来根据跳转值比较 <code>s1[i]</code> 和 <code>s2[n]</code>，也就是说 <code>s1[i-n:i]</code> 和 <code>s2[:n]</code> 这 n 个 char 也是完全一样的。</p>
+
+<p>所以，其实对于求 m 的跳转值，就是找在 <code>s2[:m]</code> 之间最大的 n，使得 <code>s2[:n] == s2[m-n:m]</code>。假设我们已知 <code>next[m] = n</code>，如果 <code>s2[m] == s2[next[m]]</code>，就可以很顺理成章的推出 <code>s2[:n+1] == s2[m-n:m+1]</code>，即可得 <code>next[m+1] = n+1</code>。只有当不存在这个 n 满足以上条件时，我们才会得出 <code>next[m+1] = 0</code> 这个结果。</p>
+
+<p>然后就会出现一种情况就是当 <code>s2[m] != s2[next[m]]</code> 的时候，我们应该怎么处理。假设 <code>next[m] = a</code>，我们已知的是 <code>s2[:a] == s2[m-a:m]</code>，这种情况下，假设 <code>next[m+1] = b, s2[:b] == s2[m-b+1:m+1]</code>，但是因为 <code>s2[m] != s2[a]</code>，所以 b 的最大值不会超过 a-1。</p>
+
+<p>等一下，a-1 好像是一个很熟悉的 index，如果 <code>next[a] = x</code>，那么我们可以得出 <code>s2[:x] == s2[a-x:a]</code>。也就是说如果 <code>s2[m] == s2[x]</code>，我们就可以得出 <code>s2[:x+1] == s2[m-x:m+1]</code>，即 <code>next[m+1] = b = x+1</code>。同时也易知 x+1 就是 b 的最大值，因为 b 要是再大的话，<code>s2[m-b+1:m+1]</code> 就会包括 <code>s2[a]</code>，但是我们知道 <code>s2[a] != s2[m]</code>，这样就产生了矛盾。</p>
+
+<p>到此，我们就可以得到生成 <code>next[]</code> 的函数：</p>
+
+<pre><code>def get_next(s):
+	next = [0 for _ in range(len(s))]
+	next[0] = -1
+	for i in range(2, len(s)):
+		prev = i - 1
+		while prev != -1:
+			if s[i-1] == s[next[prev]]:
+				next[i] = next[prev] + 1
+				break
+			else:
+				prev = next[prev]
+	return next
+</code></pre>
+
+<p>上面过程其实画个图就可以很直观的理解了，写出来还是有点绕的。</p>
+
+<h2 id="section-2">匹配字符串</h2>
+
+<p>匹配的过程就没啥好说的，大概的伪代码我前面已经写了，当我们发现跳转值变成 -1 的时候，就可以移动 <code>s1</code> 的 index 了。具体的代码可见 <a href="https://github.com/starcroce/PyAlgoDataStructure/blob/master/string/strstr.py:">MyGitHub</a>。</p>
+
+<p>因为在 KMP 的情况下只用 <code>s1</code> 的 index 只用线性移动一遍，但是复杂度分析依然是另一回事，观察生成 <code>next[]</code> 的函数，这是个双层循环，但是其实复杂度还是 O(n) 的。具体的分析等我有空了再写一篇，这个涉及到 atmortized complexity。</p>
+
+
+  <address class="signature">
+    <a class="author" href="/">Yisha Wu</a> 
+    <span class="date">23 June 2015</span>
+    <span class="location"></span>
+  </address>
+  
+  <div class="prev-next">
+  
+  
+    <a href="/life/2015/03/18/check-duplicate-element-in-array" class="prev" title="Check Duplicate Element in Array">&larr; Earlier Post</a>
+  
+  </div>
+  
+</div><!-- End Page -->
+
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'starcrocegithubio'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+
+
+  
+  <div id="footer">
+  	<address>
+  		<span class="copyright">
+  			Content by <a href="/info/site.html">Yisha Wu</a>. Design by 
+  			<a href="http://mark.reid.name/">Mark Reid</a>
+  			<br/>
+  			(<a rel="licence" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Some rights reserved</a>)			
+  		</span>
+  		<span class="engine">
+  			Powered by <a href="http://github.com/mojombo/jekyll/" title="A static, minimalist CMS">Jekyll</a>
+  		</span>
+  	</address>
+  </div>
+  
+</div>
+
+<!--[if IE 6]>
+<script type="text/javascript"> 
+	/*Load jQuery if not already loaded*/ if(typeof jQuery == 'undefined'){ document.write("<script type=\"text/javascript\"   src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js\"></"+"script>"); var __noconflict = true; } 
+	var IE6UPDATE_OPTIONS = {
+		icons_path: "http://static.ie6update.com/hosted/ie6update/images/"
+	}
+</script>
+<script type="text/javascript" src="http://static.ie6update.com/hosted/ie6update/ie6update.js"></script>
+<![endif]-->
+
+  
+</body>
+</html>
+

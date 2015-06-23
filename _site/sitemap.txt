@@ -9,6 +9,7 @@ http://starcroce.github.io/info/site.html
 http://starcroce.github.io/sitemap.txt
 http://starcroce.github.io/tags.html
 
+http://starcroce.github.io/tech/2015/06/23/kmp-algorithm
 http://starcroce.github.io/life/2015/03/18/check-duplicate-element-in-array
 http://starcroce.github.io/life/2014/11/05/how-many-primes-less-than-100-million
 http://starcroce.github.io/tech/2014/10/28/relase-note
